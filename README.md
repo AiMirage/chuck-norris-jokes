@@ -4,8 +4,6 @@ Simple php package made for practice.
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
-
 ```bash
 composer required aimirage/chuck-norris-jokes
 ```
