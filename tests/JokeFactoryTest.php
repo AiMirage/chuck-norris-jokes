@@ -4,6 +4,12 @@ namespace AiMirage\ChuckNorrisJokes\Tests;
 
 use AiMirage\ChuckNorrisJokes\JokeFactory;
 use PHPUnit\Framework\TestCase;
+use GuzzleHttp\Client;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Exception\RequestException;
 
 class JokeFactoryTest extends TestCase
 {
@@ -14,26 +20,18 @@ class JokeFactoryTest extends TestCase
      */
     public function it_returns_a_random_joke()
     {
-        $jokes = new JokeFactory([
-            'This is a joke',
+        $mock = new MockHandler([
+            new Response(200, [], '{ "type": "success", "value": { "id": 268, "joke": "Time waits for no man. Unless that man is Chuck Norris." } }')
         ]);
 
-        $joke = $jokes->getRandomJoke();
+        $handlerStack = HandlerStack::create($mock);
 
-        $this->assertSame($joke, 'This is a joke');
-    }
+        $client = new Client(['handler' => $handlerStack]);
 
-    /**
-     * @test
-     *
-     * @return void
-     */
-    public function it_returns_a_predefined_joke()
-    {
-        $jokes = new JokeFactory();
+        $jokes = new JokeFactory($client);
 
         $joke = $jokes->getRandomJoke();
 
-        $this->assertContains($joke, $jokes->allJokes());
+        $this->assertSame($joke, 'Time waits for no man. Unless that man is Chuck Norris.');
     }
 }

@@ -2,28 +2,31 @@
 
 namespace AiMirage\ChuckNorrisJokes;
 
+use GuzzleHttp\Client;
+
 class JokeFactory
 {
-    protected $jokes = [
-        'joke 1',
-        'joke 2',
-        'joke 3',
-    ];
+
+    const API_ENDPOINT = 'http://api.icndb.com/jokes/random';
+
+    protected $client;
+
+    public function __construct(Client $client = null)
+    {
+        $this->client = $client ?: new Client();
+    }
 
     public function allJokes(): array
     {
         return $this->jokes;
     }
 
-    public function __construct(array $jokes = null)
+    public function getRandomJoke()
     {
-        if ($jokes) {
-            $this->jokes = $jokes;
-        }
-    }
+        $response = $this->client->get(self::API_ENDPOINT);
 
-    public function getRandomJoke(): string
-    {
-        return $this->jokes[array_rand($this->jokes)];
+        $joke = json_decode($response->getBody()->getContents());
+
+        return $joke->value->joke ;
     }
 }
