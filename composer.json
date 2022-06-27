@@ -1,0 +1,25 @@
+{
+    "name": "aimirage/chuck-norris-jokes",
+    "description": "Create random chuck norris jokes",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ali Ibrahim",
+            "email": "aliibra395@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "AiMirage\\ChuckNorrisJokes\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AiMirage\\ChuckNorrisJokes\\Tests\\": "tests"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}
