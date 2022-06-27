@@ -30,5 +30,15 @@
         "allow-plugins": {
             "kylekatarnls/update-helper": true
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "AiMirage\\ChuckNorrisJokes\\ChuckNorrisJokesServiceProvider"
+            ],
+            "aliases": {
+                "ChuckNorris": "AiMirage\\ChuckNorrisJokes\\Facades\\ChuckNorris"
+            }
+        }
     }
 }
