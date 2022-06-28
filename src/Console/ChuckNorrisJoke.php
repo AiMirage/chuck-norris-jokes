@@ -12,7 +12,7 @@ class ChuckNorrisJoke extends Command
 
     protected $description = 'Output a chuck norris joke';
 
-    function handle()
+    public function handle()
     {
         $this->info(ChuckNorris::getRandomJoke());
     }
